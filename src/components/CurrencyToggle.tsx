@@ -9,46 +9,44 @@ const fadeIn = keyframes`
 
 const CurrencyWrapper = styled.div`
   position: relative;
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
+  display: inline-block;
+  margin: 0 8px;
+
+  @media (max-width: 768px) {
+    margin: 0 4px;
+  }
+
+  @media (max-width: 480px) {
+    margin: 0 2px;
+  }
 `;
 
 const CurrencyButton = styled.button<{ isActive: boolean }>`
-  background: ${props => props.isActive 
-    ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' 
-    : 'rgba(255, 255, 255, 0.1)'};
-  border: 2px solid ${props => props.isActive 
-    ? 'rgba(255, 255, 255, 0.3)' 
-    : 'rgba(255, 255, 255, 0.2)'};
-  color: white;
-  padding: 8px 16px;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-  backdrop-filter: blur(15px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 8px;
-  box-shadow: ${props => props.isActive 
-    ? '0 8px 25px rgba(102, 126, 234, 0.3)' 
-    : '0 4px 15px rgba(0, 0, 0, 0.1)'};
-  
-  &:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
-  }
+  justify-content: center;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: ${({ isActive }) => (isActive ? '#667eea' : 'transparent')};
+  color: ${({ isActive }) => (isActive ? '#fff' : '#667eea')};
+  border: 1px solid #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
-  &:active {
-    transform: translateY(0);
+  &:hover {
+    background: #667eea;
+    color: #fff;
   }
 
   @media (max-width: 768px) {
-    padding: 6px 12px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 4px 8px;
     font-size: 0.8rem;
   }
 `;
@@ -66,20 +64,22 @@ const CurrencyText = styled.span`
 const DropdownMenu = styled.div<{ isOpen: boolean }>`
   position: absolute;
   top: 100%;
-  right: 0;
-  margin-top: 8px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   z-index: 1000;
-  overflow: hidden;
-  opacity: ${props => props.isOpen ? 1 : 0};
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-  transform: ${props => props.isOpen ? 'translateY(0) scale(1)' : 'translateY(-10px) scale(0.95)'};
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  min-width: 140px;
+  min-width: 150px;
+
+  @media (max-width: 768px) {
+    min-width: 120px;
+  }
+
+  @media (max-width: 480px) {
+    min-width: 100px;
+  }
 `;
 
 const DropdownItem = styled.button<{ isSelected: boolean }>`

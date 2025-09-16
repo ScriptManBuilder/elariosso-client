@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { usePrice } from '../hooks/usePrice';
 
 const Container = styled.div`
   max-width: 800px;
@@ -32,6 +33,8 @@ const Paragraph = styled.p`
 `;
 
 const RefundPolicy: React.FC = () => {
+  const { formatPrice } = usePrice();
+
   return (
     <Container>
       <Title>Refund Policy</Title>
@@ -58,7 +61,7 @@ const RefundPolicy: React.FC = () => {
       <Section>
         <SectionTitle>2. VIP Membership Refunds</SectionTitle>
         <Paragraph>
-          VIP Membership (£19.99/month) can be cancelled anytime during the 3-day free trial period without charge.
+          VIP Membership ({formatPrice(19.99)}/month) can be cancelled anytime during the 3-day free trial period without charge.
           After the trial period, you may cancel your membership but no refund will be provided for the current billing cycle.
         </Paragraph>
       </Section>
@@ -66,7 +69,7 @@ const RefundPolicy: React.FC = () => {
       <Section>
         <SectionTitle>3. Product Refund Process</SectionTitle>
         <Paragraph>
-          To initiate a return, contact us at <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a> with your order number and reason for return.
+          To initiate a return, contact us at <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a> with your order number and reason for return.
           We will provide you with a return authorization and shipping instructions.
         </Paragraph>
       </Section>
@@ -115,7 +118,7 @@ const RefundPolicy: React.FC = () => {
         </Paragraph>
         <Paragraph>
           <strong>ELARIOSSO DIGITAL LIMITED</strong> (Company Registration: 16651785)<br/>
-          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a><br/>
+          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a><br/>
           Phone: +44 7446 127033<br/>
           Address: 15 Station Road, New Barnet, Barnet, EN5 1NZ, United Kingdom
         </Paragraph>

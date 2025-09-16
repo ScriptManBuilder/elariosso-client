@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { usePrice } from '../hooks/usePrice';
 
 const Container = styled.div`
   max-width: 800px;
@@ -32,6 +33,8 @@ const Paragraph = styled.p`
 `;
 
 const ReturnPolicy: React.FC = () => {
+  const { formatPrice } = usePrice();
+
   return (
     <Container>
       <Title>Return Policy</Title>
@@ -66,7 +69,7 @@ const ReturnPolicy: React.FC = () => {
       <Section>
         <SectionTitle>3. VIP Membership Returns</SectionTitle>
         <Paragraph>
-          VIP Membership subscriptions (£19.99/month) can be cancelled during the 3-day free trial 
+          VIP Membership subscriptions ({formatPrice(19.99)}/month) can be cancelled during the 3-day free trial 
           without any charges. Cancellations after the trial period will stop future billing but 
           no refund will be provided for the current billing period.
         </Paragraph>
@@ -78,7 +81,7 @@ const ReturnPolicy: React.FC = () => {
           To initiate a return:
         </Paragraph>
         <Paragraph>
-          1. Contact our support team at <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a><br/>
+          1. Contact our support team at <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a><br/>
           2. Provide your order number and reason for return<br/>
           3. We will provide a return authorization number and instructions<br/>
           4. Pack the item securely and ship to our returns address
@@ -138,7 +141,7 @@ const ReturnPolicy: React.FC = () => {
         </Paragraph>
         <Paragraph>
           <strong>ELARIOSSO DIGITAL LIMITED</strong> (Company Registration: 16651785)<br/>
-          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a><br/>
+          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a><br/>
           Phone: +44 7446 127033<br/>
           Address: 15 Station Road, New Barnet, Barnet, EN5 1NZ, United Kingdom
         </Paragraph>

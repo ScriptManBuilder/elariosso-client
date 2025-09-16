@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { usePrice } from '../hooks/usePrice';
 
 const Container = styled.div`
   max-width: 800px;
@@ -32,6 +33,8 @@ const Paragraph = styled.p`
 `;
 
 const PrivacyPolicy: React.FC = () => {
+  const { formatPrice } = usePrice();
+
   return (
     <Container>
       <Title>Privacy Policy</Title>
@@ -62,7 +65,7 @@ const PrivacyPolicy: React.FC = () => {
       <Section>
         <SectionTitle>2. VIP Membership Data</SectionTitle>
         <Paragraph>
-          For our VIP membership program (£19.99/month after 3-day free trial), we collect additional information including:
+          For our VIP membership program ({formatPrice(19.99)}/month after 3-day free trial), we collect additional information including:
           membership preferences, purchase history, and billing information for recurring payments.
         </Paragraph>
       </Section>
@@ -111,7 +114,7 @@ const PrivacyPolicy: React.FC = () => {
         <SectionTitle>8. Your Rights</SectionTitle>
         <Paragraph>
           You have the right to access, update, or delete your personal information. You may also opt out 
-          of marketing communications at any time. Contact us at <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a> for assistance.
+          of marketing communications at any time. Contact us at <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a> for assistance.
         </Paragraph>
       </Section>
 
@@ -131,7 +134,7 @@ const PrivacyPolicy: React.FC = () => {
         <Paragraph>
           <strong>ELARIOSSO DIGITAL LIMITED</strong> (Company Registration: 16651785)<br/>
           15 Station Road, New Barnet, Barnet, EN5 1NZ, United Kingdom<br/>
-          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a><br/>
+          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a><br/>
           Phone: +44 7446 127033
         </Paragraph>
       </Section>

@@ -94,7 +94,7 @@ const Support: React.FC = () => {
                   <ContactTitle>Email Support</ContactTitle>
                   <ContactInfo>Average response time: 2-4 hours</ContactInfo>
                   <ContactLink href="mailto:s0a2irbn@anonaddy.com">
-                    support@elariosso.com
+                    support@elariosso-tech.com
                   </ContactLink>
                 </ContactContent>
               </ContactCard>

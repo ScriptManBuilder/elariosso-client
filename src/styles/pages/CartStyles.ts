@@ -4,6 +4,8 @@ export const CartWrapper = styled.div`
   margin-top: 120px;
   min-height: calc(100vh - 120px);
   padding: 60px 0;
+  background: #ffffff;
+  color: #1a1a1a;
 `;
 
 export const CartContent = styled.div`
@@ -19,10 +21,11 @@ export const CartContent = styled.div`
 `;
 
 export const CartItems = styled.div`
-  background: white;
+  background: #ffffff;
   border-radius: 15px;
   padding: 30px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border: 1px solid #e5e7eb;
 `;
 
 export const CartItem = styled.div`
@@ -31,7 +34,7 @@ export const CartItem = styled.div`
   gap: 20px;
   align-items: center;
   padding: 20px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f3f4f6;
   
   &:last-child {
     border-bottom: none;
@@ -89,12 +92,13 @@ export const ItemInfo = styled.div`
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 5px;
-    color: #333;
+    color: #1f2937;
   }
   
   p {
-    color: #666;
+    color: #6b7280;
     font-size: 0.9rem;
+    line-height: 1.4;
   }
 `;
 
@@ -102,22 +106,24 @@ export const QuantityControls = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #f8f9fa;
+  background: #f9fafb;
   border-radius: 25px;
   padding: 5px;
+  border: 1px solid #e5e7eb;
 `;
 
 export const QuantityButton = styled.button`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: #374151;
   
   &:hover {
     background: #667eea;
@@ -135,6 +141,7 @@ export const Quantity = styled.span`
   font-weight: 600;
   min-width: 30px;
   text-align: center;
+  color: #1f2937;
 `;
 
 export const ItemPrice = styled.div`
@@ -157,10 +164,11 @@ export const RemoveButton = styled.button`
 `;
 
 export const CartSummary = styled.div`
-  background: white;
+  background: #ffffff;
   border-radius: 15px;
   padding: 30px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border: 1px solid #e5e7eb;
   position: sticky;
   top: 140px;
   width: 100%;
@@ -243,17 +251,62 @@ export const CheckoutButton = styled.div`
 
 export const ContinueShoppingButton = styled.div`
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
   
-  button, a {
-    width: 100% !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-height: 45px;
-    display: flex;
+  a {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    color: #475569;
+    border: 2px solid #cbd5e1;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    white-space: nowrap;
+    text-transform: none;
+    letter-spacing: 0;
+    width: auto;
+    
+    &::before {
+      content: '←';
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-color: #667eea;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+      
+      &::before {
+        transform: translateX(-3px);
+      }
+    }
+    
+    &:active {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      padding: 12px 24px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -261,20 +314,22 @@ export const SummaryTitle = styled.h3`
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #333;
+  color: #1f2937;
 `;
 
 export const SummaryRow = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  color: #374151;
+  font-size: 1rem;
   
   &.total {
-    border-top: 2px solid #f0f0f0;
+    border-top: 2px solid #e5e7eb;
     padding-top: 15px;
     font-size: 1.2rem;
     font-weight: 700;
-    color: #333;
+    color: #1f2937;
   }
 `;
 
@@ -308,21 +363,24 @@ export const MembershipOffer = styled.div`
 export const EmptyCart = styled.div`
   text-align: center;
   padding: 80px 20px;
+  background: #ffffff;
+  border-radius: 15px;
+  border: 1px solid #e5e7eb;
   
   .icon {
     font-size: 4rem;
-    color: #ccc;
+    color: #d1d5db;
     margin-bottom: 20px;
   }
   
   h2 {
     font-size: 1.5rem;
-    color: #666;
+    color: #374151;
     margin-bottom: 15px;
   }
   
   p {
-    color: #999;
+    color: #6b7280;
     margin-bottom: 30px;
   }
 `;
@@ -705,11 +763,12 @@ export const PlanFeatures = styled.ul`
 `;
 
 export const DiscountApplied = styled.div`
-  background: #f0f9ff;
+  background: #f0fdf4;
   border: 2px solid #10b981;
   border-radius: 12px;
   padding: 15px;
   margin: 15px 0;
+  color: #065f46;
 `;
 
 export const MembershipCheckbox = styled.div`
@@ -742,12 +801,13 @@ export const MembershipCheckbox = styled.div`
 
 export const TrialInfo = styled.div`
   font-size: 0.9rem;
-  color: #1f2937;
+  color: #ffffff;
   line-height: 1.5;
   margin-top: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   padding: 12px 16px;
   border-radius: 8px;
   border-left: 4px solid #fbbf24;
   font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 `;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingCartIcon, UserIcon, MenuIcon, CloseIcon, PhoneIcon, MailIcon } from './Icons';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
+import { usePrice } from '../hooks/usePrice';
 import ProductsDropdown from './ProductsDropdown';
 import CurrencyToggle from './CurrencyToggle';
 import {
@@ -29,6 +30,7 @@ const Header: React.FC = () => {
   const [isProductsDropdownVisible, setIsProductsDropdownVisible] = useState(false);
   const { state } = useCart();
   const { isAuthenticated } = useAuth();
+  const { formatPrice } = usePrice();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isMouseOverProducts = useRef(false);
   const isMouseOverDropdown = useRef(false);
@@ -171,7 +173,7 @@ const Header: React.FC = () => {
       <TopBar>
         <TopBarContent>
           <WarningText>
-            FREE SHIPPING on orders over £50 | Premium Digital Experience
+            FREE SHIPPING on orders over {formatPrice(50)} | Premium Digital Experience
           </WarningText>
           <ContactInfo>
             <ContactItem>
@@ -181,7 +183,7 @@ const Header: React.FC = () => {
                 onClick={handleEmailClick}
                 style={{ cursor: 'pointer', color: 'inherit', textDecoration: 'none' }}
               >
-                support@elariosso.com
+                support@elariosso-tech.com
               </a>
             </ContactItem>
             <ContactItem>
@@ -219,9 +221,9 @@ const Header: React.FC = () => {
               onMouseLeave={handleDropdownMouseLeave}
             />
           </ProductsNavItem>
-          {/* <NavLink to="/about" onClick={() => setIsMenuOpen(false)}>ABOUT</NavLink> */}
-         {/*  <NavLink to="/contact" onClick={() => setIsMenuOpen(false)}>CONTACT</NavLink> */}
+          <NavLink to="/about" onClick={() => setIsMenuOpen(false)}>ABOUT</NavLink>
           <NavLink to="/support" onClick={() => setIsMenuOpen(false)}>SUPPORT</NavLink>
+          <button className="close-button" onClick={() => setIsMenuOpen(false)}>X</button>
         </NavLinks>
         
         <RightSection>

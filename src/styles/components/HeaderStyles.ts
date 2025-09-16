@@ -384,168 +384,127 @@ export const NavLinks = styled.div<{ isOpen: boolean }>`
   gap: 30px;
   align-items: center;
   
+  .close-button {
+    display: none;
+  }
+  
   @media (max-width: 768px) {
-    position: fixed;
-    top: 55px;
-    left: 0;
-    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
-    flex-direction: column;
-    padding: 12px 15px;
     box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
     transform: translateY(${props => props.isOpen ? '0' : '-100%'});
     transition: transform 0.3s ease;
-    gap: 8px;
-    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
     max-height: calc(100vh - 55px);
     overflow-y: auto;
-  }
-  
-  @media (max-width: 480px) {
-    display: ${props => props.isOpen ? 'flex' : 'none'};
     position: fixed;
-    top: 45px;
+    top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    flex-direction: column;
-    padding: 10px 8px;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-    gap: 6px;
-    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
-    max-height: calc(100vh - 45px);
-    overflow-y: auto;
     z-index: 999;
+
+    .close-button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+    }
   }
-  
-  @media (max-width: 375px) {
-    top: 42px;
-    padding: 8px 6px;
-    gap: 5px;
-    max-height: calc(100vh - 42px);
-  }
-  
-  @media (max-width: 360px) {
-    top: 40px;
-    padding: 6px 5px;
-    gap: 4px;
-    max-height: calc(100vh - 40px);
-  }
-  
-  @media (max-width: 320px) {
-    top: 35px;
-    padding: 5px 4px;
+
+  @media (max-width: 480px) {
     gap: 3px;
-    max-height: calc(100vh - 35px);
+    padding: 4px 8px;
+
+    .close-button {
+      width: 22px;
+      height: 22px;
+      font-size: 9px;
+      top: 4px;
+      right: 4px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    gap: 2px;
+    padding: 3px 6px;
+
+    .close-button {
+      width: 20px;
+      height: 20px;
+      font-size: 8px;
+      top: 3px;
+      right: 3px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    gap: 1px;
+    padding: 2px 3px;
+
+    .close-button {
+      width: 18px;
+      height: 18px;
+      font-size: 7px;
+      top: 2px;
+      right: 2px;
+    }
   }
 `;
 
 export const NavLink = styled(Link)`
   color: #333;
   font-weight: 600;
-  transition: all 0.3s ease;
-  position: relative;
+  text-align: center;
   padding: 8px 16px;
-  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
   text-decoration: none;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-    border-radius: 12px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 12px;
-    padding: 2px;
-    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #667eea);
-    background-size: 300% 300%;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    opacity: 0;
-    animation: ${borderSnake} 4s ease-in-out infinite;
-    animation-play-state: paused;
-  }
-  
+
   &:hover {
     color: #667eea;
-    transform: translateY(-2px);
-    
-    &::before {
-      opacity: 1;
-    }
-    
-    &::after {
-      opacity: 1;
-      animation-play-state: running;
-    }
   }
-  
-  &.active {
-    color: #667eea;
-    
-    &::before {
-      opacity: 1;
-    }
-    
-    &::after {
-      opacity: 0.7;
-      animation-play-state: running;
-    }
-  }
-  
+
   @media (max-width: 768px) {
-    width: 100%;
-    text-align: center;
-    padding: 8px 15px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    
-    &:hover {
-      transform: scale(1.02);
-    }
-  }
-  
-  @media (max-width: 480px) {
-    padding: 6px 12px;
     font-size: 0.85rem;
-    font-weight: 500;
-  }
-  
-  @media (max-width: 375px) {
-    padding: 5px 10px;
-    font-size: 0.8rem;
-    font-weight: 400;
-  }
-  
-  @media (max-width: 360px) {
     padding: 4px 8px;
-    font-size: 0.75rem;
-    font-weight: 400;
   }
-  
-  @media (max-width: 320px) {
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
     padding: 3px 6px;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 0.75rem;
+    padding: 2px 4px;
+  }
+
+  @media (max-width: 320px) {
     font-size: 0.7rem;
-    font-weight: 400;
+    padding: 2px 3px;
   }
 `;
 

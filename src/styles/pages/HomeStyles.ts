@@ -134,31 +134,56 @@ export const HeroSection = styled.section`
   
   @media (max-width: 768px) {
     margin-top: 100px;
-    min-height: 70vh;
-    padding: 60px 0;
+    min-height: 75vh;
+    padding: 50px 0;
     
     &::after {
-      width: 150px;
-      height: 150px;
-      right: 5%;
-      top: 20%;
+      background-size: 40px 40px, 30px 30px, 50px 50px;
+      opacity: 0.2;
     }
   }
   
   @media (max-width: 480px) {
     margin-top: 80px;
-    min-height: 60vh;
+    min-height: 70vh;
     padding: 40px 0;
     
-    &::before {
-      background-size: 30px 30px;
+    &::after {
+      background-size: 30px 30px, 20px 20px, 40px 40px;
+      opacity: 0.15;
     }
+  }
+  
+  @media (max-width: 425px) {
+    margin-top: 75px;
+    min-height: 65vh;
+    padding: 35px 0;
     
     &::after {
-      width: 100px;
-      height: 100px;
-      right: 3%;
-      top: 25%;
+      background-size: 25px 25px, 15px 15px, 35px 35px;
+      opacity: 0.1;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    margin-top: 70px;
+    min-height: 60vh;
+    padding: 30px 0;
+    
+    &::after {
+      background-size: 20px 20px, 12px 12px, 30px 30px;
+      opacity: 0.08;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    margin-top: 65px;
+    min-height: 55vh;
+    padding: 25px 0;
+    
+    &::after {
+      background-size: 15px 15px, 10px 10px, 25px 25px;
+      opacity: 0.05;
     }
   }
 `;
@@ -182,6 +207,32 @@ export const HeroVideo = styled.video`
   @media (max-width: 768px) {
     opacity: 0.7;
     filter: brightness(0.5) contrast(1.1) saturate(1.2) hue-rotate(5deg);
+    object-position: center center;
+  }
+  
+  @media (max-width: 480px) {
+    opacity: 0.6;
+    filter: brightness(0.4) contrast(1.0) saturate(1.1) hue-rotate(0deg);
+    object-position: center center;
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: 425px) {
+    opacity: 0.5;
+    filter: brightness(0.35) contrast(0.9) saturate(1.0);
+    transform: scale(1.15);
+  }
+  
+  @media (max-width: 375px) {
+    opacity: 0.4;
+    filter: brightness(0.3) contrast(0.8) saturate(0.9);
+    transform: scale(1.2);
+  }
+  
+  @media (max-width: 320px) {
+    opacity: 0.3;
+    filter: brightness(0.25) contrast(0.7) saturate(0.8);
+    transform: scale(1.25);
   }
 `;
 
@@ -194,13 +245,28 @@ export const HeroContent = styled.div`
   animation: ${slideInUp} 1s ease-out;
   
   @media (max-width: 768px) {
-    max-width: 90%;
+    max-width: 95%;
     padding: 0 15px;
   }
   
   @media (max-width: 480px) {
-    max-width: 95%;
+    max-width: 98%;
     padding: 0 10px;
+  }
+  
+  @media (max-width: 425px) {
+    max-width: 99%;
+    padding: 0 8px;
+  }
+  
+  @media (max-width: 375px) {
+    max-width: 100%;
+    padding: 0 6px;
+  }
+  
+  @media (max-width: 320px) {
+    max-width: 100%;
+    padding: 0 5px;
   }
 `;
 
@@ -253,6 +319,42 @@ export const HeroTitle = styled.h1`
       height: 2px;
     }
   }
+  
+  @media (max-width: 425px) {
+    font-size: 2rem;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    
+    &::after {
+      width: 80px;
+      height: 1.5px;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    font-size: 1.8rem;
+    letter-spacing: 0px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    
+    &::after {
+      width: 70px;
+      height: 1.5px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    font-size: 1.6rem;
+    letter-spacing: 0px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    
+    &::after {
+      width: 60px;
+      height: 1px;
+    }
+  }
 `;
 
 export const HeroSubtitle = styled.p`
@@ -272,6 +374,27 @@ export const HeroSubtitle = styled.p`
     font-size: 1.1rem;
     margin-bottom: 25px;
     line-height: 1.3;
+  }
+  
+  @media (max-width: 425px) {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    opacity: 0.9;
+  }
+  
+  @media (max-width: 375px) {
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+  
+  @media (max-width: 320px) {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    opacity: 0.8;
   }
 `;
 
@@ -333,6 +456,41 @@ export const HeroButtons = styled.div`
       font-size: 0.9rem;
       width: 100%;
       max-width: 250px;
+    }
+  }
+  
+  @media (max-width: 425px) {
+    gap: 12px;
+    
+    button, a {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      max-width: 220px;
+      border-radius: 25px;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    gap: 10px;
+    
+    button, a {
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      max-width: 200px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    gap: 8px;
+    
+    button, a {
+      padding: 6px 15px;
+      font-size: 0.75rem;
+      max-width: 180px;
+      border-radius: 15px;
+      letter-spacing: 0px;
     }
   }
 `;
@@ -1150,4 +1308,334 @@ export const ScrollReveal = styled.div<{ delay?: number }>`
 export const ParallaxElement = styled.div<{ speed?: number }>`
   transform: translateY(0);
   transition: transform 0.1s linear;
+`;
+
+// Photo Gallery Styles
+export const PhotoGallerySection = styled.section`
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  padding: 80px 0;
+  position: relative;
+  
+  /* Добавляем глубину с помощью box-shadow */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 60px 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 40px 0;
+  }
+`;
+
+export const ScrollingTextBanner = styled.div`
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    #ff6b6b 0%,
+    #4ecdc4 25%,
+    #45b7d1 50%,
+    #96ceb4 75%,
+    #ffeaa7 100%
+  );
+  background-size: 400% 100%;
+  animation: gradientShift 12s ease infinite;
+  padding: 20px 0;
+  margin-top: 50px;
+  position: relative;
+  box-shadow: 
+    0 -10px 30px rgba(0,0,0,0.3),
+    0 -2px 8px rgba(0,0,0,0.2),
+    inset 0 -1px 0 rgba(255,255,255,0.2);
+  
+  /* Добавляем блики */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255,255,255,0.4) 50%,
+      transparent 100%
+    );
+    animation: shine 3s infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.8) 0%,
+      rgba(255,255,255,0.2) 50%,
+      rgba(255,255,255,0.8) 100%
+    );
+    animation: topGlow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+    100% { background-position: 0% 0%; }
+  }
+  
+  @keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  @keyframes topGlow {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  
+  @media (max-width: 768px) {
+    padding: 15px 0;
+    margin-top: 40px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 12px 0;
+    margin-top: 30px;
+  }
+`;
+
+export const ScrollingText = styled.div`
+  display: flex;
+  white-space: nowrap;
+  animation: scrollText 25s linear infinite;
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: #fff;
+  text-shadow: 
+    2px 2px 4px rgba(0,0,0,0.8),
+    0 0 20px rgba(255,255,255,0.5),
+    0 0 40px rgba(255,255,255,0.3);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-family: 'Arial Black', sans-serif;
+  
+  @keyframes scrollText {
+    0% {
+      transform: translate3d(100%, 0, 0);
+    }
+    100% {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+  
+  span {
+    padding-right: 120px;
+    display: inline-block;
+    position: relative;
+    
+    /* Добавляем разделители между текстами */
+    &::after {
+      content: '●';
+      position: absolute;
+      right: 60px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8em;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    &:last-child::after {
+      display: none;
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    animation: scrollText 20s linear infinite;
+    
+    span {
+      padding-right: 100px;
+      
+      &::after {
+        right: 50px;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    animation: scrollText 15s linear infinite;
+    
+    span {
+      padding-right: 80px;
+      
+      &::after {
+        right: 40px;
+      }
+    }
+  }
+  
+  /* Пауза анимации при hover */
+  &:hover {
+    animation-play-state: paused;
+  }
+  
+  /* Reduce motion для accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    animation: scrollText 50s linear infinite;
+  }
+`;
+
+export const PhotoStrip = styled.div`
+  display: flex;
+  width: calc(200% + 200px);
+  animation: scrollPhotos 35s linear infinite;
+  transform: translateZ(0); /* GPU acceleration */
+  will-change: transform; /* Оптимизация для анимации */
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+  
+  @keyframes scrollPhotos {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  
+  /* Пауза анимации при hover */
+  &:hover {
+    animation-play-state: paused;
+    
+    /* При ховере слегка замедляем и увеличиваем */
+    transform: translateZ(0) scale(1.02);
+    transition: transform 0.3s ease;
+  }
+  
+  @media (max-width: 768px) {
+    animation: scrollPhotos 30s linear infinite;
+  }
+  
+  @media (max-width: 480px) {
+    animation: scrollPhotos 25s linear infinite;
+  }
+  
+  /* Reduce motion для пользователей с настройками accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    animation: scrollPhotos 80s linear infinite;
+  }
+`;
+
+export const PhotoItem = styled.div`
+  flex: 0 0 250px;
+  height: 200px;
+  margin-right: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transform: translateZ(0); /* Оптимизация для GPU */
+  will-change: transform; /* Подсказка браузеру для оптимизации */
+  cursor: pointer;
+  
+  /* Красивые тени и границы */
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.3),
+    0 2px 8px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  
+  /* Голографический эффект границы */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      rgba(255,0,150,0.5) 0%,
+      rgba(0,255,255,0.5) 25%,
+      rgba(255,255,0,0.5) 50%,
+      rgba(150,0,255,0.5) 75%,
+      rgba(255,0,150,0.5) 100%
+    );
+    background-size: 400% 400%;
+    border-radius: 20px;
+    padding: 2px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    animation: hologramBorder 3s ease infinite;
+    transition: opacity 0.3s ease;
+  }
+  
+  @keyframes hologramBorder {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  &:hover {
+    transform: translateZ(0) scale(1.05) rotateY(5deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+      0 20px 40px rgba(0,0,0,0.4),
+      0 8px 16px rgba(0,0,0,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.2);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+  
+  /* Эффект при нажатии */
+  &:active {
+    transform: translateZ(0) scale(0.98);
+  }
+  
+  @media (max-width: 768px) {
+    flex: 0 0 200px;
+    height: 160px;
+    margin-right: 15px;
+    border-radius: 16px;
+    
+    &::before {
+      border-radius: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    flex: 0 0 150px;
+    height: 120px;
+    margin-right: 10px;
+    border-radius: 12px;
+    
+    &::before {
+      border-radius: 12px;
+    }
+  }
 `;

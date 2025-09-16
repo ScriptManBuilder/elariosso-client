@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { usePrice } from '../hooks/usePrice';
 
 const Container = styled.div`
   max-width: 800px;
@@ -32,6 +33,8 @@ const Paragraph = styled.p`
 `;
 
 const TermsConditions: React.FC = () => {
+  const { formatPrice } = usePrice();
+
   return (
     <Container>
       <Title>Terms & Conditions</Title>
@@ -55,7 +58,7 @@ const TermsConditions: React.FC = () => {
           Our contact information:
         </Paragraph>
         <Paragraph>
-          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a><br/>
+          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a><br/>
           Phone: +44 7446 127033<br/>
           Address: 15 Station Road, New Barnet, Barnet, EN5 1NZ, United Kingdom
         </Paragraph>
@@ -64,28 +67,83 @@ const TermsConditions: React.FC = () => {
       <Section>
         <SectionTitle>3. VIP Membership Terms</SectionTitle>
         <Paragraph>
-          Our VIP Membership program offers exclusive benefits including 15% discounts on all products, 
-          early access to new releases, and priority customer support.
+          Our VIP Membership program offers multiple tiers with exclusive benefits including discounts on all products, 
+          early access to new releases, priority customer support, and additional perks based on your membership level.
         </Paragraph>
+        
         <Paragraph>
-          <strong>Membership Pricing:</strong> £19.99 per month after a 3-day free trial period.
+          <strong>Available Membership Plans:</strong>
         </Paragraph>
+        
         <Paragraph>
-          <strong>Trial Period:</strong> New members receive a 3-day free trial. You may cancel anytime during 
-          the trial period without charge. After the trial, your membership will automatically renew monthly 
-          at £19.99 unless cancelled.
+          <strong>Starter Mini Membership:</strong> {formatPrice(9.99)} every 14 days<br/>
+          • 5% discount on all orders<br/>
+          • Basic customer support<br/>
+          • Monthly newsletter
+        </Paragraph>
+        
+        <Paragraph>
+          <strong>Starter Membership (Most Popular):</strong> {formatPrice(19.99)} every 14 days<br/>
+          • 8% discount on all orders<br/>
+          • Priority support<br/>
+          • Monthly newsletter<br/>
+          • Free shipping on orders over {formatPrice(50)}
+        </Paragraph>
+        
+        <Paragraph>
+          <strong>Basic Membership:</strong> {formatPrice(29.99)} every 14 days<br/>
+          • 12% discount on all orders<br/>
+          • Free shipping on all orders<br/>
+          • Priority support<br/>
+          • Early access to new products
+        </Paragraph>
+        
+        <Paragraph>
+          <strong>Prime Membership:</strong> {formatPrice(39.99)} every 14 days<br/>
+          • 15% discount on all orders<br/>
+          • Free shipping worldwide<br/>
+          • VIP support<br/>
+          • Early access to new products<br/>
+          • Exclusive member events
+        </Paragraph>
+        
+        <Paragraph>
+          <strong>Gold Membership:</strong> {formatPrice(49.99)} every 14 days<br/>
+          • 18% discount on all orders<br/>
+          • Free shipping worldwide<br/>
+          • VIP support<br/>
+          • Early access to new products<br/>
+          • Exclusive member events<br/>
+          • Birthday bonus
+        </Paragraph>
+        
+        <Paragraph>
+          <strong>VIP Membership:</strong> {formatPrice(59.99)} every 14 days<br/>
+          • 20% discount on all orders<br/>
+          • Free shipping worldwide<br/>
+          • Premium VIP support<br/>
+          • First access to new products<br/>
+          • Exclusive member events<br/>
+          • Birthday bonus<br/>
+          • Personal shopping assistant
+        </Paragraph>
+        
+        <Paragraph>
+          <strong>Trial Period:</strong> New members receive a 3-day free trial for any membership plan. You may cancel anytime during 
+          the trial period without charge. After the trial, your membership will automatically renew every 14 days 
+          at the selected plan rate unless cancelled.
         </Paragraph>
         <Paragraph>
           <strong>Cancellation:</strong> You may cancel your membership at any time through your account settings 
-          or by contacting <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a>. Cancellation takes effect at the end of your current billing cycle.
+          or by contacting <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a>. Cancellation takes effect at the end of your current billing cycle.
         </Paragraph>
       </Section>
 
       <Section>
         <SectionTitle>4. Product Pricing</SectionTitle>
         <Paragraph>
-          Our products are available at various price points: £2.99, £6.99, £9.99, £19.99, £29.99, and £39.99. 
-          All prices are in British Pounds and include applicable taxes. VIP members receive a 15% discount on all purchases.
+          Our products are available at various price points: {formatPrice(2.99)}, {formatPrice(6.99)}, {formatPrice(9.99)}, {formatPrice(19.99)}, {formatPrice(29.99)}, and {formatPrice(39.99)}. 
+          All prices include applicable taxes. VIP members receive a 15% discount on all purchases.
         </Paragraph>
       </Section>
 
@@ -104,7 +162,7 @@ const TermsConditions: React.FC = () => {
         <SectionTitle>6. Shipping and Delivery</SectionTitle>
         <Paragraph>
           We aim to dispatch orders within 1-2 business days. Delivery times may vary 
-          based on location and shipping method selected. Free shipping is available on orders over £50 and for all VIP members.
+          based on location and shipping method selected. Free shipping is available on orders over {formatPrice(50)} and for all VIP members.
         </Paragraph>
       </Section>
 
@@ -148,7 +206,7 @@ const TermsConditions: React.FC = () => {
           <strong>ELARIOSSO DIGITAL LIMITED</strong> (Company Registration: 16651785)<br />
           15 Station Road, New Barnet, Barnet, EN5 1NZ, United Kingdom<br />
           Phone: +44 7446 127033<br />
-          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a>
+          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a>
         </Paragraph>
       </Section>
     </Container>

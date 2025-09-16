@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container } from '../styles/GlobalStyles';
 import { products } from '../data/products';
 import { usePrice } from '../hooks/usePrice';
 import { RocketIcon, LightningIcon, ShieldIcon, GlobeIcon, TargetIcon, DiamondIcon } from '../components/FeatureIcons';
+import LazyImage from '../components/LazyImage';
 import {
   HeroSection,
   HeroVideo,
@@ -31,7 +32,12 @@ import {
   ProductDescription,
   ProductButton,
   ScrollReveal,
-  ParallaxElement
+  ParallaxElement,
+  PhotoGallerySection,
+  PhotoStrip,
+  PhotoItem,
+  ScrollingTextBanner,
+  ScrollingText
 } from '../styles/pages/HomeStyles';
 
 const Home: React.FC = () => {
@@ -39,6 +45,31 @@ const Home: React.FC = () => {
   const { formatPrice } = usePrice();
   const scrollRevealRefs = useRef<(HTMLDivElement | null)[]>([]);
   const parallaxRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  // Мемоизируем массив изображений для галереи
+  const galleryImages = useMemo(() => {
+    return Array.from({ length: 16 }, (_, i) => {
+      const imageIndex = (i % 8) + 1;
+      const imageExt = imageIndex === 7 ? 'png' : 'jpg';
+      return {
+        id: i,
+        src: `/images/AiPic${imageIndex}.${imageExt}`,
+        alt: `AI Generated ${i + 1}`
+      };
+    });
+  }, []);
+
+  // Мемоизируем текст для бегущей строки
+  const scrollingTexts = useMemo(() => [
+    'JOIN US ON THE DIGITAL REVOLUTION',
+    'FOLLOW US @ELARIOSSO_DIGITAL',
+    'PREMIUM TECHNOLOGY SOLUTIONS',
+    'INNOVATIVE AI-POWERED PRODUCTS',
+    'TRANSFORM YOUR DIGITAL EXPERIENCE',
+    'CONNECT WITH THE FUTURE'
+  ], []);
 
   useEffect(() => {
     // Intersection Observer для scroll reveal эффектов
@@ -60,23 +91,46 @@ const Home: React.FC = () => {
       if (ref) observer.observe(ref);
     });
 
-    // Parallax эффект при скролле
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      
-      parallaxRefs.current.forEach((ref, index) => {
-        if (ref) {
-          const speed = (index + 1) * 0.1;
-          const yPos = -(scrollY * speed);
-          ref.style.transform = `translateY(${yPos}px)`;
+    // Intersection Observer для галереи
+    const galleryObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          galleryObserver.disconnect();
         }
-      });
+      },
+      { threshold: 0.1, rootMargin: '200px' }
+    );
+
+    if (galleryRef.current) {
+      galleryObserver.observe(galleryRef.current);
+    }
+
+    // Parallax эффект при скролле (throttled)
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          
+          parallaxRefs.current.forEach((ref, index) => {
+            if (ref) {
+              const speed = (index + 1) * 0.1;
+              const yPos = -(scrollY * speed);
+              ref.style.transform = `translateY(${yPos}px)`;
+            }
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       observer.disconnect();
+      galleryObserver.disconnect();
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -236,6 +290,30 @@ const Home: React.FC = () => {
           </ScrollReveal>
         </Container>
       </ProductsSection>
+
+      {/* Photo Gallery Section */}
+      <PhotoGallerySection ref={galleryRef}>
+        {isVisible && (
+          <PhotoStrip>
+            {galleryImages.map((image) => (
+              <PhotoItem key={image.id}>
+                <LazyImage
+                  src={image.src}
+                  alt={image.alt}
+                />
+              </PhotoItem>
+            ))}
+          </PhotoStrip>
+        )}
+        
+        <ScrollingTextBanner>
+          <ScrollingText>
+            {scrollingTexts.map((text, index) => (
+              <span key={index}>{text}</span>
+            ))}
+          </ScrollingText>
+        </ScrollingTextBanner>
+      </PhotoGallerySection>
     </>
   );
 };

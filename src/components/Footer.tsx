@@ -35,7 +35,6 @@ const Footer: React.FC = () => {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/products">Products</Link></li>
               <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
             </ul>
           </FooterSection>
           
@@ -67,7 +66,7 @@ const Footer: React.FC = () => {
             <p>15 Station Road, New Barnet,</p>
             <p>Barnet, EN5 1NZ, United Kingdom</p>
             <p>
-              Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a>
+              Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a>
             </p>
             <p>
               Phone: <a href="tel:+447446127033">+44 7446 127033</a>

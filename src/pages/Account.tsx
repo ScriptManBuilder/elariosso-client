@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Container, Button } from '../styles/GlobalStyles';
 import { useAuth } from '../contexts/AuthContext';
 import { usePrice } from '../hooks/usePrice';
+import { Link } from 'react-router-dom';
 
 const AccountWrapper = styled.div`
   padding-top: 100px;
@@ -468,6 +469,208 @@ const ChangeButton = styled(Button)<{ current?: boolean }>`
   }
 `;
 
+const LoginPromptWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 20px;
+`;
+
+const LoginPromptCard = styled.div`
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 30px;
+  padding: 60px 40px;
+  text-align: center;
+  color: white;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 60px rgba(102, 126, 234, 0.4),
+    0 10px 30px rgba(0, 0, 0, 0.2);
+  
+  /* Анимированный фон */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    );
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+  }
+  
+  /* Декоративные элементы */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+  }
+  
+  @media (max-width: 768px) {
+    padding: 40px 30px;
+    border-radius: 25px;
+    margin: 0 10px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 30px 25px;
+    border-radius: 20px;
+  }
+`;
+
+const LoginIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  animation: pulse 2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+  
+  @keyframes pulse {
+    0%, 100% { 
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+    50% { 
+      transform: scale(1.05);
+      box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+`;
+
+const LoginTitle = styled.h2`
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  position: relative;
+  z-index: 2;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 1.9rem;
+    margin-bottom: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+`;
+
+const LoginSubtitle = styled.p`
+  font-size: 1.1rem;
+  margin: 0 0 35px 0;
+  opacity: 0.9;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+`;
+
+const LoginButtons = styled.div`
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 12px;
+  }
+`;
+
+const LoginButton = styled(Button)`
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 12px 30px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+  
+  @media (max-width: 480px) {
+    padding: 14px 25px;
+    width: 100%;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+`;
+
+const SecondaryButton = styled(LoginButton)`
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+`;
+
 const Account: React.FC = () => {
   const { user, updateMembership, logout } = useAuth();
   const { formatPrice } = usePrice();
@@ -658,9 +861,25 @@ const Account: React.FC = () => {
     return (
       <AccountWrapper>
         <Container>
-          <div style={{ textAlign: 'center', padding: '100px 20px' }}>
-            <h2>Please log in to access your account</h2>
-          </div>
+          <LoginPromptWrapper>
+            <LoginPromptCard>
+              <LoginIcon>
+                🔐
+              </LoginIcon>
+              <LoginTitle>Access Required</LoginTitle>
+              <LoginSubtitle>
+                Please log in to access your account dashboard and manage your membership, orders, and personal information.
+              </LoginSubtitle>
+              <LoginButtons>
+                <LoginButton as={Link} to="/login">
+                  Sign In
+                </LoginButton>
+                <SecondaryButton as={Link} to="/register">
+                  Create Account
+                </SecondaryButton>
+              </LoginButtons>
+            </LoginPromptCard>
+          </LoginPromptWrapper>
         </Container>
       </AccountWrapper>
     );

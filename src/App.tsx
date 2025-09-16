@@ -26,7 +26,9 @@ const LazySupport = React.lazy(() => import('./pages/Support'));
 const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
 const TermsConditions = React.lazy(() => import('./pages/TermsConditions'));
 const RefundPolicy = React.lazy(() => import('./pages/RefundPolicy'));
+const ReturnPolicy = React.lazy(() => import('./pages/ReturnPolicy'));
 const ShippingPolicy = React.lazy(() => import('./pages/ShippingPolicy'));
+const LazyAbout = React.lazy(() => import('./pages/About'));
 
 function App() {
   // Регистрируем Service Worker для кэширования
@@ -104,8 +106,9 @@ function AppContent() {
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-conditions" element={<TermsConditions />} />
                 <Route path="/refund-policy" element={<RefundPolicy />} />
+                <Route path="/return-policy" element={<ReturnPolicy />} />
                 <Route path="/shipping-policy" element={<ShippingPolicy />} />
-                <Route path="/contact" element={<div style={{ marginTop: '120px', padding: '60px 20px', textAlign: 'center' }}>Contact - Coming Soon</div>} />
+                <Route path="/about" element={<LazyAbout />} />
               </Routes>
             </Suspense>
           </main>

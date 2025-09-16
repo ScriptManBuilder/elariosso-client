@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import styled from 'styled-components';
 import { Container, Button } from '../styles/GlobalStyles';
 import { useCart } from '../contexts/CartContext';
@@ -494,32 +493,96 @@ const ProcessingDots = styled.div`
 
 const CaptchaContainer = styled.div`
   margin: 25px 0;
-  display: flex;
-  justify-content: center;
   padding: 20px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   border: 1px solid var(--minimal-gray-700);
+`;
+
+const CaptchaBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
   
-  .recaptcha-container {
-    transform: scale(0.9);
-    transform-origin: center;
-    transition: transform 0.3s ease;
-    
-    &:hover {
-      transform: scale(0.92);
-    }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+`;
+
+const CaptchaQuestion = styled.div`
+  background: linear-gradient(135deg, var(--minimal-gray-800) 0%, var(--minimal-gray-700) 100%);
+  border: 2px solid var(--minimal-gray-600);
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--minimal-text);
+  text-align: center;
+  min-width: 150px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+`;
+
+const CaptchaInput = styled.input`
+  width: 80px;
+  padding: 12px;
+  background: var(--minimal-bg);
+  border: 2px solid var(--minimal-gray-700);
+  border-radius: 8px;
+  color: var(--minimal-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--minimal-accent);
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+    background: rgba(0, 102, 255, 0.02);
+  }
+
+  &::placeholder {
+    color: var(--minimal-gray-500);
   }
   
-  @media (max-width: 768px) {
-    .recaptcha-container {
-      transform: scale(0.77);
-      
-      &:hover {
-        transform: scale(0.79);
-      }
-    }
+  @media (max-width: 480px) {
+    width: 100px;
   }
+`;
+
+const CaptchaRefresh = styled.button`
+  background: linear-gradient(135deg, var(--minimal-gray-700) 0%, var(--minimal-gray-600) 100%);
+  border: 2px solid var(--minimal-gray-600);
+  border-radius: 8px;
+  color: var(--minimal-text);
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--minimal-accent) 0%, #4f46e5 100%);
+    border-color: var(--minimal-accent);
+    transform: scale(1.05);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+const CaptchaLabel = styled.label`
+  display: block;
+  color: var(--minimal-gray-300);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-align: center;
 `;
 
 const ContactInfo = styled.div`
@@ -635,7 +698,36 @@ const PaymentError = styled.div`
 const Checkout: React.FC = () => {
   const { state } = useCart();
   const { formatPrice } = usePrice();
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  
+  // Generate random math question
+  const generateCaptcha = () => {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const operations = ['+', '-', '×'];
+    const operation = operations[Math.floor(Math.random() * operations.length)];
+    
+    let answer;
+    switch (operation) {
+      case '+':
+        answer = num1 + num2;
+        break;
+      case '-':
+        answer = Math.abs(num1 - num2); // Always positive
+        break;
+      case '×':
+        answer = num1 * num2;
+        break;
+      default:
+        answer = num1 + num2;
+    }
+    
+    return {
+      question: `${num1} ${operation} ${num2} = ?`,
+      answer
+    };
+  };
+
+  const [captchaProblem, setCaptchaProblem] = useState(generateCaptcha());
   const [formData, setFormData] = useState({
     email: '',
     firstName: '',
@@ -651,7 +743,7 @@ const Checkout: React.FC = () => {
     nameOnCard: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaAnswer, setCaptchaAnswer] = useState<string>('');
   const [paymentError, setPaymentError] = useState<string>('');
 
   const subtotal = state.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -669,11 +761,16 @@ const Checkout: React.FC = () => {
     }
   };
 
-  const handleCaptchaChange = (token: string | null) => {
-    setCaptchaToken(token);
+  const handleCaptchaAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCaptchaAnswer(e.target.value);
     if (paymentError) {
       setPaymentError('');
     }
+  };
+
+  const refreshCaptcha = () => {
+    setCaptchaProblem(generateCaptcha());
+    setCaptchaAnswer('');
   };
 
   const validateForm = () => {
@@ -686,8 +783,9 @@ const Checkout: React.FC = () => {
       }
     }
     
-    if (!captchaToken) {
-      setPaymentError('Please complete the security verification (reCAPTCHA)');
+    // Validate captcha
+    if (!captchaAnswer || parseInt(captchaAnswer) !== captchaProblem.answer) {
+      setPaymentError('Please solve the security verification correctly');
       return false;
     }
     
@@ -725,7 +823,7 @@ const Checkout: React.FC = () => {
       // Process order (no real charges)
       const orderData = {
         formData,
-        captchaToken,
+        captchaVerified: true,
         total,
         items: state.items,
         timestamp: new Date().toISOString(),
@@ -919,7 +1017,7 @@ const Checkout: React.FC = () => {
             <ContactInfo>
               <ContactTitle>Customer Support</ContactTitle>
               <ContactDetails>
-                <p>📧 Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a></p>
+                <p>📧 Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a></p>
                 <p>📞 Phone: <a href="tel:+447446127033">+44 7446 127033</a></p>
                 <p>🕒 Hours: Monday - Friday, 9 AM - 6 PM GMT</p>
                 <p>💬 Live chat available 24/7 on our website</p>
@@ -948,20 +1046,30 @@ const Checkout: React.FC = () => {
             )}
 
             <CaptchaContainer>
-              <div className="recaptcha-container">
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" // Test key - replace with your actual site key
-                  onChange={handleCaptchaChange}
-                  theme="dark"
+              <CaptchaLabel>Security Verification *</CaptchaLabel>
+              <CaptchaBox>
+                <CaptchaQuestion>{captchaProblem.question}</CaptchaQuestion>
+                <CaptchaInput
+                  type="number"
+                  value={captchaAnswer}
+                  onChange={handleCaptchaAnswerChange}
+                  placeholder="Answer"
+                  min="0"
                 />
-              </div>
+                <CaptchaRefresh 
+                  type="button" 
+                  onClick={refreshCaptcha}
+                  title="Generate new question"
+                >
+                  🔄
+                </CaptchaRefresh>
+              </CaptchaBox>
             </CaptchaContainer>
 
             <PlaceOrderButton 
               type="submit" 
               variant="primary"
-              disabled={!captchaToken || isSubmitting}
+              disabled={!captchaAnswer || isSubmitting}
             >
               {isSubmitting ? '⏳ Processing Payment...' : `🚀 Complete Order - ${formatPrice(total)}`}
             </PlaceOrderButton>

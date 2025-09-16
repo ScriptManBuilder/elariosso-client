@@ -145,7 +145,7 @@ const Cart: React.FC = () => {
   return (
     <CartWrapper>
       <Container>
-        <Title style={{ color: '#333', marginBottom: '40px' }}>Shopping Cart</Title>
+        <Title style={{ color: '#1f2937', marginBottom: '40px', fontSize: '2.5rem', fontWeight: '700' }}>Shopping Cart</Title>
         
         <CartContent>
           <CartItems>
@@ -256,7 +256,7 @@ const Cart: React.FC = () => {
             
             <SummaryRow>
               <span>Shipping:</span>
-              <span>{shipping === 0 ? 'FREE' : `£${shipping.toFixed(2)}`}</span>
+              <span>{shipping === 0 ? 'FREE' : formatPrice(shipping)}</span>
             </SummaryRow>
             
             <SummaryRow style={{ 
@@ -283,8 +283,8 @@ const Cart: React.FC = () => {
           </CartSummary>
         </CartContent>
 
-        <ContinueShoppingButton as={Link} to="/products">
-          ← Continue Shopping
+        <ContinueShoppingButton>
+          <Link to="/products">Continue Shopping</Link>
         </ContinueShoppingButton>
 
         {showMembershipModal && (

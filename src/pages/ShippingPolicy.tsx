@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { usePrice } from '../hooks/usePrice';
 
 const Container = styled.div`
   max-width: 800px;
@@ -32,6 +33,8 @@ const Paragraph = styled.p`
 `;
 
 const ShippingPolicy: React.FC = () => {
+  const { formatPrice } = usePrice();
+
   return (
     <Container>
       <Title>Shipping Policy</Title>
@@ -58,8 +61,8 @@ const ShippingPolicy: React.FC = () => {
       <Section>
         <SectionTitle>2. Shipping Options</SectionTitle>
         <Paragraph>
-          <strong>Standard Shipping:</strong> 3-5 business days (Free on orders over £50)<br/>
-          <strong>Express Shipping:</strong> 1-2 business days (£9.99)<br/>
+          <strong>Standard Shipping:</strong> 3-5 business days (Free on orders over {formatPrice(50)})<br/>
+          <strong>Express Shipping:</strong> 1-2 business days ({formatPrice(9.99)})<br/>
           <strong>VIP Members:</strong> Free shipping on all orders regardless of amount
         </Paragraph>
       </Section>
@@ -67,10 +70,10 @@ const ShippingPolicy: React.FC = () => {
       <Section>
         <SectionTitle>3. Shipping Costs</SectionTitle>
         <Paragraph>
-          Standard shipping: £4.99 for orders under £50<br/>
-          Express shipping: £9.99<br/>
+          Standard shipping: {formatPrice(4.99)} for orders under {formatPrice(50)}<br/>
+          Express shipping: {formatPrice(9.99)}<br/>
           VIP Members: Free shipping on all orders<br/>
-          Orders over £50: Free standard shipping
+          Orders over {formatPrice(50)}: Free standard shipping
         </Paragraph>
       </Section>
 
@@ -78,7 +81,7 @@ const ShippingPolicy: React.FC = () => {
         <SectionTitle>4. Delivery Areas</SectionTitle>
         <Paragraph>
           We currently ship to all locations within the United Kingdom. 
-          International shipping may be available upon request - please contact <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a> for details.
+          International shipping may be available upon request - please contact <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a> for details.
         </Paragraph>
       </Section>
 
@@ -93,7 +96,7 @@ const ShippingPolicy: React.FC = () => {
       <Section>
         <SectionTitle>6. Delivery Issues</SectionTitle>
         <Paragraph>
-          If your package is lost or damaged during shipping, please contact us immediately at <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a>. 
+          If your package is lost or damaged during shipping, please contact us immediately at <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a>. 
           We will work with our shipping partners to resolve the issue quickly.
         </Paragraph>
       </Section>
@@ -114,7 +117,7 @@ const ShippingPolicy: React.FC = () => {
         <Paragraph>
           <strong>ELARIOSSO DIGITAL LIMITED</strong> (Company Registration: 16651785)<br/>
           15 Station Road, New Barnet, Barnet, EN5 1NZ, United Kingdom<br/>
-          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso.com</a><br/>
+          Email: <a href="mailto:s0a2irbn@anonaddy.com">support@elariosso-tech.com</a><br/>
           Phone: +44 7446 127033
         </Paragraph>
       </Section>
