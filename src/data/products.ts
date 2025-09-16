@@ -131,7 +131,7 @@ export const products: Product[] = [
   {
     id: 2,
     name: "Elariosso Studio Master",
-    price: 29.99,
+    price: 39.99,
     image: getProductImage(2),
     images: getProductImages(2),
     description: "Professional studio monitor headphones for critical audio production and mixing.",
@@ -151,7 +151,7 @@ export const products: Product[] = [
   {
     id: 3,
     name: "Elariosso Cyber Elite",
-    price: 39.99,
+    price: 49.99,
     image: getProductImage(3),
     images: getProductImages(3),
     description: "High-performance gaming headset with immersive surround sound and customizable RGB lighting.",
@@ -191,7 +191,7 @@ export const products: Product[] = [
   {
     id: 5,
     name: "Elariosso Sport Active",
-    price: 19.99,
+    price: 39.99,
     image: getProductImage(5),
     images: getProductImages(5),
     description: "Sweat-resistant wireless earbuds engineered for intense workouts and active lifestyles.",
@@ -211,7 +211,7 @@ export const products: Product[] = [
   {
     id: 6,
     name: "Elariosso Classic Wired",
-    price: 29.99,
+    price: 49.99,
     image: getProductImage(6),
     images: getProductImages(6),
     description: "Affordable wired headphones delivering exceptional sound quality for everyday listening.",
@@ -231,7 +231,7 @@ export const products: Product[] = [
   {
     id: 7,
     name: "Elariosso Bass Pro",
-    price: 29.99,
+    price: 59.99,
     image: getProductImage(7),
     images: getProductImages(7),
     description: "Bass-enhanced earbuds perfect for hip-hop, electronic music, and bass lovers.",
@@ -251,7 +251,7 @@ export const products: Product[] = [
   {
     id: 8,
     name: "Elariosso Entry Level",
-    price: 39.99,
+    price: 69.99,
     image: getProductImage(8),
     images: getProductImages(8),
     description: "Entry-level earbuds offering surprising quality at an unbeatable price point.",
@@ -292,7 +292,7 @@ export const products: Product[] = [
   {
     id: 10,
     name: "Elariosso Blue Wireless Pro",
-    price: 39.99,
+    price: 19.99,
     image: getProductImage(10),
     images: getProductImages(10),
     description: "Premium wireless earbuds in stylish blue design with professional-grade sound quality.",
@@ -356,7 +356,7 @@ export const products: Product[] = [
   {
     id: 14,
     name: "Elariosso True Wireless Pro",
-    price: 39.99,
+    price: 19.99,
     image: getProductImage(14),
     images: getProductImages(14),
     description: "Premium true wireless earbuds with advanced noise cancellation and premium sound.",
@@ -376,7 +376,7 @@ export const products: Product[] = [
   {
     id: 15,
     name: "Elariosso DJ Master",
-    price: 29.99,
+    price: 39.99,
     image: getProductImage(15),
     images: getProductImages(15),
     description: "Professional DJ headphones with swivel cups and extended frequency response.",
@@ -396,7 +396,7 @@ export const products: Product[] = [
   {
     id: 16,
     name: "Elariosso Gaming Elite RGB",
-    price: 39.99,
+    price: 49.99,
     image: getProductImage(16),
     images: getProductImages(16),
     description: "Elite gaming headset with premium RGB lighting and 7.1 surround sound.",
@@ -416,7 +416,7 @@ export const products: Product[] = [
   {
     id: 17,
     name: "Elariosso Compact Wireless",
-    price: 19.99,
+    price: 39.99,
     image: getProductImage(17),
     images: getProductImages(17),
     description: "Compact wireless earbuds perfect for everyday use with great battery life.",
@@ -456,7 +456,7 @@ export const products: Product[] = [
   {
     id: 19,
     name: "Elariosso Premium Wired",
-    price: 9.99,
+    price: 69.99,
     image: getProductImage(19),
     images: getProductImages(19),
     description: "Premium wired headphones with audiophile-grade drivers and comfort design.",
@@ -476,7 +476,7 @@ export const products: Product[] = [
   {
     id: 20,
     name: "Elariosso Studio Professional",
-    price: 29.99,
+    price: 49.99,
     image: getProductImage(20),
     images: getProductImages(20),
     description: "Professional studio headphones with premium build quality and accurate sound reproduction.",
@@ -516,7 +516,7 @@ export const products: Product[] = [
   {
     id: 22,
     name: "Elariosso Podcast Pro",
-    price: 19.99,
+    price: 59.99,
     image: getProductImage(22),
     images: getProductImages(22),
     description: "Professional podcast headphones with broadcast-quality sound and comfort.",
