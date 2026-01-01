@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { authAPI, User as ApiUser, SignupData, SigninData } from '../services/api';
 
 interface User {
   id: string;
@@ -30,106 +29,55 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Преобразование пользователя из API в формат приложения
-const transformApiUser = (apiUser: ApiUser): User => ({
-  id: apiUser.id.toString(),
-  email: apiUser.email,
-  firstName: apiUser.firstName || '',
-  lastName: apiUser.lastName || '',
-  isVipMember: false, // По умолчанию новый пользователь не VIP
-  membershipPlan: undefined,
-  membershipPrice: undefined,
-  membershipExpiry: undefined,
-  trialEnd: undefined,
-  credits: 0
-});
+// Static credentials from .env
+const TEST_USER_EMAIL = process.env.REACT_APP_TEST_USER_EMAIL;
+const TEST_USER_PASSWORD = process.env.REACT_APP_TEST_USER_PASSWORD;
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Проверка аутентификации при загрузке приложения
+  // Check session on app load
   useEffect(() => {
-    const initAuth = async () => {
-      setLoading(true);
-      setError(null);
-      
+    const savedUserData = localStorage.getItem('user_session');
+    if (savedUserData) {
       try {
-        if (authAPI.isAuthenticated()) {
-          const profileData = await authAPI.getProfile();
-          let transformedUser = transformApiUser(profileData.user);
-          
-          // Попытаемся восстановить данные о членстве из localStorage
-          const savedUser = localStorage.getItem('user_membership');
-          if (savedUser) {
-            const membershipData = JSON.parse(savedUser);
-            transformedUser = {
-              ...transformedUser,
-              isVipMember: membershipData.isVipMember || false,
-              membershipPlan: membershipData.membershipPlan,
-              membershipPrice: membershipData.membershipPrice,
-              membershipExpiry: membershipData.membershipExpiry ? new Date(membershipData.membershipExpiry) : undefined,
-              trialEnd: membershipData.trialEnd ? new Date(membershipData.trialEnd) : undefined,
-              credits: membershipData.credits || 0
-            };
-          }
-          
-          setUser(transformedUser);
-        }
+        const userData = JSON.parse(savedUserData);
+        setUser({
+          ...userData,
+          membershipExpiry: userData.membershipExpiry ? new Date(userData.membershipExpiry) : undefined,
+          trialEnd: userData.trialEnd ? new Date(userData.trialEnd) : undefined
+        });
       } catch (err) {
-        
-        // Проверяем тип ошибки для лучшей обработки
-        if (err instanceof Error && err.message.includes('Failed to fetch')) {
-          setError('Backend connection failed. Some features may be limited.');
-        } else {
-          setError('Authentication failed');
-        }
-        
-        // Если токен невалиден, очищаем его
-        authAPI.signout();
-        localStorage.removeItem('user_membership');
-        setUser(null);
-      } finally {
-        setLoading(false);
+        localStorage.removeItem('user_session');
       }
-    };
-
-    initAuth();
+    }
+    setLoading(false);
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setLoading(true);
     setError(null);
     
-    try {
-      const credentials: SigninData = { email, password };
-      const response = await authAPI.signin(credentials);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    if (email === TEST_USER_EMAIL && password === TEST_USER_PASSWORD) {
+      const newUser: User = {
+        id: '1',
+        email: TEST_USER_EMAIL,
+        firstName: 'Test',
+        lastName: 'User',
+        isVipMember: false,
+        credits: 0
+      };
       
-      let transformedUser = transformApiUser(response.user);
-      
-      // Попытаемся восстановить данные о членстве из localStorage
-      const savedUser = localStorage.getItem('user_membership');
-      if (savedUser) {
-        const membershipData = JSON.parse(savedUser);
-        if (membershipData.email === email) {
-          transformedUser = {
-            ...transformedUser,
-            isVipMember: membershipData.isVipMember || false,
-            membershipPlan: membershipData.membershipPlan,
-            membershipPrice: membershipData.membershipPrice,
-            membershipExpiry: membershipData.membershipExpiry ? new Date(membershipData.membershipExpiry) : undefined,
-            trialEnd: membershipData.trialEnd ? new Date(membershipData.trialEnd) : undefined,
-            credits: membershipData.credits || 0
-          };
-        }
-      }
-      
-      setUser(transformedUser);
+      localStorage.setItem('user_session', JSON.stringify(newUser));
+      setUser(newUser);
       setLoading(false);
       return true;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+    } else {
+      setError('Invalid email or password');
       setLoading(false);
       return false;
     }
@@ -139,30 +87,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setLoading(true);
     setError(null);
     
-    try {
-      const signupData: SignupData = {
-        email: userData.email,
-        password: userData.password,
-        firstName: userData.firstName,
-        lastName: userData.lastName
-      };
-      
-      const response = await authAPI.signup(signupData);
-      const transformedUser = transformApiUser(response.user);
-      
-      setUser(transformedUser);
-      setLoading(false);
-      return true;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed');
-      setLoading(false);
-      return false;
-    }
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    setError('Registration is currently disabled. Please use test account.');
+    setLoading(false);
+    return false;
   };
 
   const logout = () => {
-    authAPI.signout();
-    localStorage.removeItem('user_membership');
+    localStorage.removeItem('user_session');
     setUser(null);
     setError(null);
   };
@@ -174,20 +107,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         membershipPlan: plan,
         membershipPrice: price,
         isVipMember: true,
-        membershipExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 дней
-        credits: user.credits + 100 // Добавляем кредиты при подписке
+        membershipExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        credits: user.credits + 100
       };
       setUser(updatedUser);
-      // Сохраняем данные о членстве в localStorage
-      localStorage.setItem('user_membership', JSON.stringify({
-        email: user.email,
-        isVipMember: updatedUser.isVipMember,
-        membershipPlan: updatedUser.membershipPlan,
-        membershipPrice: updatedUser.membershipPrice,
-        membershipExpiry: updatedUser.membershipExpiry,
-        trialEnd: updatedUser.trialEnd,
-        credits: updatedUser.credits
-      }));
+      localStorage.setItem('user_session', JSON.stringify(updatedUser));
     }
   };
 
@@ -198,21 +122,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         membershipPlan: plan,
         membershipPrice: price,
         isVipMember: true,
-        trialEnd: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 дня триала
-        membershipExpiry: new Date(Date.now() + 33 * 24 * 60 * 60 * 1000), // Триал + 30 дней
-        credits: user.credits + 50 // Добавляем кредиты за триал
+        trialEnd: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        membershipExpiry: new Date(Date.now() + 33 * 24 * 60 * 60 * 1000),
+        credits: user.credits + 50
       };
       setUser(updatedUser);
-      // Сохраняем данные о членстве в localStorage
-      localStorage.setItem('user_membership', JSON.stringify({
-        email: user.email,
-        isVipMember: updatedUser.isVipMember,
-        membershipPlan: updatedUser.membershipPlan,
-        membershipPrice: updatedUser.membershipPrice,
-        membershipExpiry: updatedUser.membershipExpiry,
-        trialEnd: updatedUser.trialEnd,
-        credits: updatedUser.credits
-      }));
+      localStorage.setItem('user_session', JSON.stringify(updatedUser));
     }
   };
 
